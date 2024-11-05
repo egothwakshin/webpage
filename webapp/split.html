@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>split 사용법(Javascript) + random 함수를 이용한 보안코드 생성</title>
+</head>
+<body>
+
+<!-- 보안코드 출력 -->
+	<div style= "border: 1px solid black;
+	width: 200px; height: 50px;
+	background-color: black;" id="sec">
+	</div>
+	<input type="text" maxlength="4" placeholder="보안코드 4자리를 입력하세요">
+	
+	<!-- 사용자가 입력한 내용은 그대료 유지 및 해당 사항만 재실행 -->
+	<button type = "button" onclick="sec_load()">새로고침</button>
+	
+	<!-- 해당 코드는 F5와 동일하게 페이지 전체를 새로고침 -->
+	<button type = "button" onclick="page_load()">전체 새로 고침</button>
+</body>
+
+<script>
+
+function sec_load(){
+	//random 함수를 이용한 보안코드
+	var w = 1;
+	var security = "";	//보안코드 4자리를 저장하는 변수
+	var seimg = ""; //이미지 출력 태그에 사용하는 변수
+	do{
+		var n = Math.floor(Math.random()*10);	//floor. 0~9
+		security += n;	
+		seimg += "<img src='./no/no"+ n +".png' style='width:50px; height:50px; float:left;'>";
+		w++;
+	}while(w<5);	//4개의 보안 난수코드
+	document.getElementById("sec").innerHTML = seimg;
+
+	console.log(security);
+}
+sec_load();	//해당 함수를 페이지 실행시 즉시 실행되는 명령어
+function page_load(){
+	window.location.reload();	//전체페이지를 새로고침하는 함수
+}
+
+
+//random 함수를 이용한 보안코드
+var w = 1;
+var security = "";	//보안코드 4자리를 저장하는 변수
+var seimg = ""; //이미지 출력 태그에 사용하는 변수
+do{
+	var n = Math.floor(Math.random()*10);	//floor. 0~9
+	security += n;	
+	seimg += "<img src='./no/no"+ n +".png' style='width:50px; height:50px; float:left;'>";
+	w++;
+}while(w<5);	//4개의 보안 난수코드
+document.getElementById("sec").innerText = seimg;
+
+console.log(security);
+
+
+/*
+split은 문자열을 '해당 문자 기준'으로 배열화 시키는 함수
+배열로 분리 된 후 배열번호를 이용하여 추가 분리 및 출력이 가능합니다.
+ */
+	var code = "?abc=333&bbb=123"
+	var data = code.split("&bbb="); //split: 문자열을->배열로 구분하겠다
+	var bbb = data[1];
+	var abc = data[0].split("?abc=");
+	console.log(bbb);
+	console.log(abc[1]);
+</script>
+</html>
